@@ -122,7 +122,6 @@ class ValidationService implements Contract
      */
     protected function beforeValidation()
     {
-        return $this->validationData();
     }
 
     /**
@@ -132,7 +131,7 @@ class ValidationService implements Contract
      */
     protected function validationData()
     {
-        return $this->transform($this->data);
+        return $this->data;
     }
 
     /**

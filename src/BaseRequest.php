@@ -27,7 +27,6 @@ class BaseRequest extends FormRequest
      */
     protected function beforeValidation()
     {
-        return $this->validationData();
     }
 
     /**
@@ -37,7 +36,7 @@ class BaseRequest extends FormRequest
      */
     protected function validationData()
     {
-        return $this->transform($this->all());
+        return $this->all();
     }
 
     /**

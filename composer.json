@@ -1,0 +1,55 @@
+{
+    "name": "bright-components/valid",
+    "description": "Custom Form Requests and Service Validation for Laravel",
+    "version": "0.1.0",
+    "keywords": [
+        "brightcomponents",
+        "FormRequests",
+        "Request",
+        "Validation",
+        "Rules"
+    ],
+    "homepage": "https://github.com/bright-components/valid",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Clayton Stone",
+            "email": "clay@phpstage.com",
+            "homepage": "https://codestage.co",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "waavi/sanitizer": "~1.0",
+        "laravel/framework": "5.6.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BrightComponents\\Valid\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BrightComponents\\Valid\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BrightComponents\\Valid\\ValidServiceProvider"
+            ]
+        }
+    }
+}

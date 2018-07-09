@@ -14,15 +14,17 @@ The packages under the BrightComponents namespace are basically a way for me to 
 ## Package Objectives
 
 ### Form Requests
-[waavi/sanitizer](https://github.com/Waavi/Sanitizer) has been added to Form Requests. To use, a public 'filters' method has been added to your FormRequest class. Here, just like with the 'rules' method, return an array of filters that you want to run on your data. See [available filters](https://github.com/Waavi/Sanitizer#available-filters) on the repo, for a list of filters you can use out-of-the-box. You can also create your own [custom filters](https://github.com/Waavi/Sanitizer#adding-custom-filters) to use.
+- Sanitization
+
+   Laravel provides limited sanitization options, via middleware, out-of-the-box. For example, the [TrimStrings](https://github.com/laravel/framework/blob/5.6/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php) middleware is enabled by default. However, you'll be responsible for any other sanitization that needs to be performed on data from your users. [waavi/sanitizer](https://github.com/Waavi/Sanitizer) makes this a breeze. In form requests, it works similarly to validation. In the same way that the "rules" method returns an array of rules, the "filters" method should return an array of filters. This method has been added to your bright-components/valid FormRequest class by default . Here, just like with the 'rules' method, return an array of filters that you want to run on your data. See the available filters [here](https://github.com/Waavi/Sanitizer#available-filters), that you can use out-of-the-box. You can also create your own [custom filters](https://github.com/Waavi/Sanitizer#adding-custom-filters) to use.
 
 ### Custom Rules
-I often use custom rules in Laravel. From time to time, I want access to the current FormRequest and/or the current validator, from within the custom rule. Anything can be passed through the construct of the custom rule, however, it can get ugly passing the FormRequest, Validator and other data like this. See below:
+I often use custom rules in Laravel. From time to time, I want access to the current FormRequest and/or the current validator, from within the custom rule. Anything can be passed through the constructor of the custom rule, however, it can get ugly passing the FormRequest, Validator and other data like this. See below:
 ```php
     public function rules()
     {
         return [
-            'name' => ['required', 'min:2', new NotSpamRule($this, $this->getValidator())],
+            'name' => ['required', 'size:2', new NotSpamRule($this, $this->getValidator())],
         ];
     }
 ```
@@ -31,7 +33,7 @@ With this package, the following will accomplish the same:
     public function rules()
     {
         return [
-            'name' => ['required', 'min:2', new NotSpamRule()],
+            'name' => ['required', 'size:2', new NotSpamRule],
         ];
     }
 ```
@@ -39,13 +41,12 @@ It may not seem like much of an improvement, but I prefer my rules to be as clea
 > These custom rules can be used in your Form Requests or in a ValidationService class. See below.
 
 ### ValidationService
-In my day-to-day development, I utilize a pattern similar to [Paul Jones']() [ADR pattern](). Using this pattern, validating at the 'controller' level is discouraged. This is a function of the domain. It is recommended to perform any authorization as soon as possible (I prefer to authorize via middleware, using Laravel's built-in Gates/Policies). Data can be retrieved from the request and passed to a service to be used for further data retrieval, manipulation, etc. This is the domain layer. Using a ValidationService, you can validate the data before the service starts working on it.
+In my day-to-day development, I utilize a pattern similar to [Paul Jones']() [ADR pattern](http://paul-m-jones.com/archives/5970). Using this pattern, validating at the 'controller' level is discouraged. This is a function of the domain. It is recommended to perform any authorization as soon as possible (I prefer to authorize via middleware, using Laravel's built-in Gates/Policies). Data can then be retrieved from the request and passed to a service to be used for further data retrieval, manipulation, etc. This is part of the domain layer. Using a ValidationService, you can validate the data before the service starts working on it.
 
 The ValidationService draws HEAVILY from Laravel's Form Requests and operates in a similar way, without the Authorization component. More is explained below in the 'Usage' section.
 
 ## Installation
 You can install the package via composer. From your project directory, in your terminal, enter:
-
 ```bash
 composer require bright-components/valid
 ```
@@ -71,7 +72,7 @@ php artisan vendor:publish
 and choose the BrightComponents/Valid option.
 
 This will copy the package configuration (valid.php) to your 'config' folder.
-Here, you can set the namespace and suffix for your FormRequests, ServiceValidation classes custom rules:
+Here, you can set the namespace and suffix for your FormRequests, ServiceValidation classes Custom Rules:
 
 ```php
 <?php
@@ -97,6 +98,18 @@ return [
         |
         */
         'suffix' => 'Request',
+        
+        /*
+        |--------------------------------------------------------------------------
+        | Duplicate Suffixes
+        |--------------------------------------------------------------------------
+        |
+        | If you have a Request suffix set and try to generate a Request that also includes the suffix,
+        | the package will recognize this duplication and rename the Request to remove the suffix.
+        | This is the default behavior. To override and allow the duplication, change to false.
+        |
+        */
+        'override_duplicate_suffix' => true,
     ],
     'rules' => [
         /*
@@ -118,6 +131,18 @@ return [
         |
          */
         'suffix' => 'Rule',
+        
+        /*
+        |--------------------------------------------------------------------------
+        | Duplicate Suffixes
+        |--------------------------------------------------------------------------
+        |
+        | If you have a Rule suffix set and try to generate a Rule that also includes the suffix,
+        | the package will recognize this duplication and rename the Rule to remove the suffix.
+        | This is the default behavior. To override and allow the duplication, change to false.
+        |
+        */
+        'override_duplicate_suffix' => true,
     ],
     'validation-services' => [
         /*
@@ -139,6 +164,18 @@ return [
         |
          */
         'suffix' => 'Validation',
+        
+        /*
+        |--------------------------------------------------------------------------
+        | Duplicate Suffixes
+        |--------------------------------------------------------------------------
+        |
+        | If you have a Validation suffix set and try to generate a Validation that also includes the suffix,
+        | the package will recognize this duplication and rename the Validation to remove the suffix.
+        | This is the default behavior. To override and allow the duplication, change to false.
+        |
+        */
+        'override_duplicate_suffix' => true,
     ],
 ];
 
@@ -152,12 +189,12 @@ To generate a FormRequest class, run the following command:
 php artisan bright:request CreateComment
 ```
 
-Using the default suffix option of "Request" and the default namespace option of "Http\\Requests", this command will generate a "CreateCommentRequest" class.
+Using the default suffix option of "Request" and the default namespace option of "Http\\Requests", this command will generate an "App\Http\Requests\CreateCommentRequest" class.
 > Note: If you have a suffix set in the config, for example: "Request", and you run the following command:
 ```bash
 php artisan bright:request CreateCommentRequest
 ```
-> The suffix will NOT be duplicated.
+> The suffix will NOT be duplicated. To turn off this suffix-duplication detection, change the "override_duplicate_suffix" option to false.
 
 Below is an example Custom Form Request class:
 ```php
@@ -165,13 +202,10 @@ Below is an example Custom Form Request class:
 
 namespace App\Http\Requests;
 
-use Waavi\Sanitizer\Laravel\SanitizesInput;
 use BrightComponents\Valid\BaseRequest;
 
 class CustomClass extends BaseRequest
 {
-    use SanitizesInput;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -207,7 +241,7 @@ class CustomClass extends BaseRequest
     }
 }
 ```
-As with the out-of-the-box Laravel Form Requests, you have access to a ```prepareForValidation()``` method, that can handle any pre-validation logic necessary, as well as a ```transform()``` method that can be used to manipulate the data before validation. Check out BrightComponents\Valid\BaseRequest for more details.
+> Note: For any pre-validation logic that is necessary, you can utilize the ```beforeValidation()``` method. There is also a ```transform()``` method that can be used to manipulate the data before validation. Check out BrightComponents\Valid\BaseRequest for more details.
 
 ### Custom Rules
 To generate a custom Rule, run the following command:
@@ -215,14 +249,14 @@ To generate a custom Rule, run the following command:
 php artisan bright:rule CustomRule
 ```
 
-Using the default suffix option of "Rule" and the default namespace option of "Rules", this command will generate a "CustomRule" class.
+Using the default suffix option of "Rule" and the default namespace option of "Rules", this command will generate an "App\Rules\CustomRule" class.
 > Note: If you have a suffix set in the config, for example: "Rule", and you run the following command:
 ```bash
 php artisan bright:rule CustomRule
 ```
-> The suffix will NOT be duplicated.
+> The suffix will NOT be duplicated. To turn off this suffix-duplication detection, change the "override_duplicate_suffix" option to false.
 
-From time to time, you may need to access information from the current request and/or validator inside your Custom Rule classes. All custom rules come with the current form request object and the current validator object attached. These can be referenced inside the Custom Rule class via their properties. See below:
+From time to time, you may need to access information from the current FormRequest and/or current validator inside your CustomRule classes. All custom rules come with the current FormRequest object and the current validator object attached. These can be referenced inside the CustomRule class via their properties. See below:
 ```php
 <?php
 
@@ -242,6 +276,7 @@ class NotSpamRule extends CustomRule
     public function passes($attribute, $value)
     {
         // if needed, access the current Validator with $this->validator and the current FormRequest with $this->request
+        
         return true;
     }
 
@@ -266,14 +301,14 @@ To generate a validation service, run the following command:
 php artisan bright:validation StoreCommentValidation
 ```
 
-Using the default suffix option of "Validation" and the default namespace option of "Services", this command will generate a "StoreCommentValidation" class.
+Using the default suffix option of "Validation" and the default namespace option of "Services", this command will generate an "App\Services\StoreCommentValidation" class.
 > Note: If you have a suffix set in the config, for example: "Validation", and you run the following command:
 ```bash
 php artisan bright:validation StoreCommentValidation
 ```
-> The suffix will NOT be duplicated.
+> The suffix will NOT be duplicated. To turn off this suffix-duplication detection, change the "override_duplicate_suffix" option to false.
 
-Currently, the Validation Service must be resolved from the container. Then you call the ```validate()``` method, passing in an array of data to be validated. Using any class in Laravel that automatically resolved classes from the container, you can use a Validation Service as outlined below. Here, I am using a Service class from [BrightComponents\Services](https://github.com/bright-components/services), however, it will work within any of Laravel's components that auto-resolves classes, such as Events, Jobs, etc.:
+Currently, the Validation Service must be resolved from the container. Then you call the ```validate()``` method, passing in an array of data to be validated. Using any class in Laravel that automatically resolves classes from the container, you can use a Validation Service as outlined below. Here, I am using a Service class from [BrightComponents\Services](https://github.com/bright-components/services) class, however, it will work within any of Laravel's components that auto-resolves classes, such as Events, Jobs, etc.:
 ```php
 <?php
 
@@ -312,7 +347,7 @@ class StoreCommentService
     }
 }
 ```
-> Just as with Laravel's Form Requests, if the data, doesn't pass validation, you are redirected back to the form with the errors. The validation exception logic and redirect logic is customizable just like it is within Form Requests.
+> Just as with Laravel's Form Requests, if the data, doesn't pass validation, you are redirected back to the form with the errors. The validation exception logic and redirect logic is customizable from within the ValidationService class, just like it is within Form Requests.
 
 Below is a sample Validation Service class:
 ```php
@@ -349,7 +384,8 @@ class StoreCommentValidator extends ValidationService
     }
 }
 ```
-> The sanitization and custom rules are available within the ValidationService, like they are within custom Form Requests.
+
+> The waavi/sanitizer and this packages' custom rule enhancements are available within the ValidationService, like they are within custom Form Requests.
 
 ### Testing
 

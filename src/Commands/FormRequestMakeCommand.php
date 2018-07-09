@@ -19,14 +19,14 @@ class FormRequestMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new Enhanced FormRequest';
+    protected $description = 'Create a new Custom FormRequest';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'Enhanced FormRequest';
+    protected $type = 'Custom FormRequest';
 
     /**
      * Get the stub file for the generator.
@@ -35,7 +35,7 @@ class FormRequestMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/enhanced-request.stub';
+        return __DIR__.'/stubs/custom-request.stub';
     }
 
     /**
@@ -47,7 +47,7 @@ class FormRequestMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $namespace = studly_case(trim(Config::get('enhanced-form-requests.requests.namespace')));
+        $namespace = studly_case(trim(Config::get('valid.requests.namespace')));
 
         return $namespace ? $rootNamespace.'\\'.$namespace : $rootNamespace;
     }
@@ -59,9 +59,13 @@ class FormRequestMakeCommand extends GeneratorCommand
      */
     protected function getNameInput()
     {
-        $input = $input = studly_case(trim($this->argument('name')));
-        $suffix = Config::get('enhanced-form-requests.requests.suffix');
+        $input = studly_case(trim($this->argument('name')));
+        $requestSuffix = Config::get('valid.requests.suffix');
 
-        return str_finish($input, $suffix);
+        if (Config::get('valid.requests.override_duplicate_suffix')) {
+            return str_finish($input, $requestSuffix);
+        }
+
+        return $input.$requestSuffix;
     }
 }

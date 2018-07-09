@@ -47,7 +47,7 @@ class CustomRuleMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $namespace = studly_case(trim(Config::get('enhanced-form-requests.rules.namespace')));
+        $namespace = studly_case(trim(Config::get('valid.rules.namespace')));
 
         return $namespace ? $rootNamespace.'\\'.$namespace : $rootNamespace;
     }
@@ -59,9 +59,13 @@ class CustomRuleMakeCommand extends GeneratorCommand
      */
     protected function getNameInput()
     {
-        $input = $input = studly_case(trim($this->argument('name')));
-        $suffix = Config::get('enhanced-form-requests.rules.suffix');
+        $input = studly_case(trim($this->argument('name')));
+        $ruleSuffix = Config::get('valid.rules.suffix');
 
-        return str_finish($input, $suffix);
+        if (Config::get('valid.rules.override_duplicate_suffix')) {
+            return str_finish($input, $ruleSuffix);
+        }
+
+        return $input.$ruleSuffix;
     }
 }

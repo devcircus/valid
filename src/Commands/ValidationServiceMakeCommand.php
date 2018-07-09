@@ -58,7 +58,7 @@ class ValidationServiceMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $validationNamespace = Config::get('valid.validation-services.validators.namespace', '');
+        $validationNamespace = Config::get('valid.validation-services.namespace', '');
 
         if (! $validationNamespace) {
             throw InvalidNamespaceException::missingValidationServiceNamespace();

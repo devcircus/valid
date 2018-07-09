@@ -3,11 +3,11 @@
 namespace BrightComponents\Valid\Traits;
 
 use Waavi\Sanitizer\Sanitizer;
-use Waavi\Sanitizer\Laravel\SanitizesInput;
+use Waavi\Sanitizer\Laravel\SanitizesInput as BaseTrait;
 
 trait SanitizesInput
 {
-    use SanitizesInput;
+    use BaseTrait;
 
     public function sanitizeData()
     {

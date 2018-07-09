@@ -1,6 +1,6 @@
 <?php
 
-namespace BrightComponents\Validation\ValidationService\Concerns;
+namespace BrightComponents\Valid\ValidationService\Concerns;
 
 use stdClass;
 use Illuminate\Support\Arr;

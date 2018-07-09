@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use BrightComponents\Valid\Validation\ValidationService;
+use BrightComponents\Valid\ValidationService\ValidationService;
 
 class DummyClass extends ValidationService
 {

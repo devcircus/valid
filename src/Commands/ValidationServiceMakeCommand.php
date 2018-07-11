@@ -9,11 +9,11 @@ use BrightComponents\Valid\Exceptions\InvalidNamespaceException;
 class ValidationServiceMakeCommand extends GeneratorCommand
 {
     /**
-     * The console command name.
+     * The console command signature.
      *
      * @var string
      */
-    protected $name = 'bright:validation {name}';
+    protected $signature = 'bright:validation {name}';
 
     /**
      * The console command description.

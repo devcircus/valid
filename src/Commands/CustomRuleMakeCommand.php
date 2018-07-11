@@ -8,11 +8,11 @@ use Illuminate\Console\GeneratorCommand;
 class CustomRuleMakeCommand extends GeneratorCommand
 {
     /**
-     * The console command name.
+     * The console command signature.
      *
      * @var string
      */
-    protected $name = 'bright:rule {name}';
+    protected $signature = 'bright:rule {name}';
 
     /**
      * The console command description.

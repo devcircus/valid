@@ -8,11 +8,11 @@ use Illuminate\Console\GeneratorCommand;
 class FormRequestMakeCommand extends GeneratorCommand
 {
     /**
-     * The console command name.
+     * The console command signature.
      *
      * @var string
      */
-    protected $name = 'bright:request {name}';
+    protected $signature = 'bright:request {name}';
 
     /**
      * The console command description.

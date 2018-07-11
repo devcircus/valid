@@ -41,6 +41,10 @@ class ValidationService implements Contract
      * Validate the class instance.
      *
      * @param  array  $data
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     *
+     * @return array
      */
     public function validate(array $data)
     {
@@ -54,7 +58,7 @@ class ValidationService implements Contract
             $this->failedValidation($validator);
         }
 
-        return $this;
+        return $this->validated();
     }
 
     /**

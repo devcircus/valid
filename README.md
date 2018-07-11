@@ -98,7 +98,7 @@ return [
         |
         */
         'suffix' => 'Request',
-        
+
         /*
         |--------------------------------------------------------------------------
         | Duplicate Suffixes
@@ -131,7 +131,7 @@ return [
         |
          */
         'suffix' => 'Rule',
-        
+
         /*
         |--------------------------------------------------------------------------
         | Duplicate Suffixes
@@ -164,7 +164,7 @@ return [
         |
          */
         'suffix' => 'Validation',
-        
+
         /*
         |--------------------------------------------------------------------------
         | Duplicate Suffixes
@@ -276,7 +276,7 @@ class NotSpamRule extends CustomRule
     public function passes($attribute, $value)
     {
         // if needed, access the current Validator with $this->validator and the current FormRequest with $this->request
-        
+
         return true;
     }
 
@@ -338,10 +338,10 @@ class StoreCommentService
      */
     public function run(StoreCommentValidator $validator) // here, the class is resolved from the container
     {
-        $validator->validate($this->params); // we call the validate method, passing the array of parameters
+        $validated = $validator->validate($this->params); // we call the validate method, passing the array of parameters
 
         return Comment::create([
-            'content' => $validator->validated()['content'], // the validated method returns the key/value pairs of data that was validaated
+            'content' => $validated['content'], // the validated method returns the key/value pairs of data that was validaated
             'user_id' => auth()->user()->id,
         ]);
     }
@@ -385,7 +385,7 @@ class StoreCommentValidator extends ValidationService
 }
 ```
 
-> The waavi/sanitizer and this packages' custom rule enhancements are available within the ValidationService, like they are within custom Form Requests.
+> You can use our custom rules and the waavi/sanitizer filters within a ValidationService just like you can with the Custom FormRequests.
 
 ### Testing
 

@@ -13,7 +13,6 @@ class FormRequestCommandTest extends IntegrationTestCase
 
         include_once base_path().'/app/Http/Requests/MyRequest.php';
 
-        $this->assertInstanceOf(\BrightComponents\Valid\BaseRequest::class, $this->app[\App\Http\Requests\MyRequest::class]);
         $this->assertMethodExists(\App\Http\Requests\MyRequest::class, 'authorize');
         $this->assertMethodExists(\App\Http\Requests\MyRequest::class, 'rules');
         $this->assertMethodExists(\App\Http\Requests\MyRequest::class, 'filters');

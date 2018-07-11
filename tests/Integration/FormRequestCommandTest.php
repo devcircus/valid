@@ -6,6 +6,8 @@ use Artisan;
 
 class FormRequestCommandTest extends IntegrationTestCase
 {
+    use TestsCommands;
+
     /** @test */
     public function bright_request_command_makes_request_with_correct_methods()
     {
@@ -16,10 +18,5 @@ class FormRequestCommandTest extends IntegrationTestCase
         $this->assertMethodExists(\App\Http\Requests\MyRequest::class, 'authorize');
         $this->assertMethodExists(\App\Http\Requests\MyRequest::class, 'rules');
         $this->assertMethodExists(\App\Http\Requests\MyRequest::class, 'filters');
-    }
-
-    public function assertMethodExists(string $className, string $methodName)
-    {
-        $this->assertTrue(method_exists($className, $methodName));
     }
 }

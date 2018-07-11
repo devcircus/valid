@@ -25,6 +25,7 @@ class IntegrationTestCase extends Orchestra
         $file = app('Illuminate\Filesystem\Filesystem');
         $file->cleanDirectory(base_path().'/app/Http/Requests');
         $file->cleanDirectory(base_path().'/app/Services');
+        $file->cleanDirectory(base_path().'/app/Rules');
     }
 
     /**

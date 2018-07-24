@@ -6,15 +6,15 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use BrightComponents\Valid\Traits\SanitizesInput;
-use BrightComponents\Valid\Traits\PreparesCustomRules;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use BrightComponents\Valid\ValidationService\Concerns\HandlesRedirects;
+use BrightComponents\Valid\Traits\PreparesCustomRulesForServiceValidator;
 use BrightComponents\Valid\ValidationService\Concerns\InteractsWithValidationData;
 use BrightComponents\Valid\Contracts\ValidationService\ValidationService as Contract;
 
 class ValidationService implements Contract
 {
-    use HandlesRedirects, InteractsWithValidationData, SanitizesInput, PreparesCustomRules;
+    use HandlesRedirects, InteractsWithValidationData, SanitizesInput, PreparesCustomRulesForServiceValidator;
 
     /**
      * The container instance.

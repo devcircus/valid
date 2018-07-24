@@ -23,6 +23,13 @@ abstract class CustomRule implements Rule
     protected static $request;
 
     /**
+     * The current ValidationService instance.
+     *
+     * @var \BrightComponents\Valid\ValidationService\ValidationService
+     */
+    protected static $service;
+
+    /**
      * Set the validator property.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator
@@ -51,6 +58,20 @@ abstract class CustomRule implements Rule
     }
 
     /**
+     * Set the Validation Service property.
+     *
+     * @param  \BrightComponents\Valid\ValidationService\ValidationService  $service
+     */
+    public static function service(? ValidationService $service = null)
+    {
+        if (! isset(static::$service) && $service) {
+            static::$service = $service;
+        }
+
+        return static::$service;
+    }
+
+    /**
      * Determine if the validation rule passes.
      *
      * @param  string  $attribute
@@ -76,7 +97,7 @@ abstract class CustomRule implements Rule
      */
     public function __get($property)
     {
-        if ('validator' === $property || 'request' === $property) {
+        if ('validator' === $property || 'request' === $property || 'service' === $property) {
             return static::$property ?? static::$property();
         }
 

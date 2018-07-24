@@ -4,11 +4,11 @@ namespace BrightComponents\Valid;
 
 use Illuminate\Foundation\Http\FormRequest;
 use BrightComponents\Valid\Traits\SanitizesInput;
-use BrightComponents\Valid\Traits\PreparesCustomRules;
+use BrightComponents\Valid\Traits\PreparesCustomRulesForFormRequest;
 
 class BaseRequest extends FormRequest
 {
-    use SanitizesInput, PreparesCustomRules;
+    use SanitizesInput, PreparesCustomRulesForFormRequest;
 
     /**
      * Prepare the data for validation.

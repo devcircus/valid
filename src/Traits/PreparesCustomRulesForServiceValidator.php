@@ -4,17 +4,17 @@ namespace BrightComponents\Valid\Traits;
 
 use BrightComponents\Valid\CustomRule;
 
-trait PreparesCustomRules
+trait PreparesCustomRulesForServiceValidator
 {
     /**
-     * Set the validator and request properties on Custom Rules.
+     * Set the validator and service validator properties on Custom Rules.
      */
     public function prepareCustomRules()
     {
         collect($this->rules())->each(function ($rules, $attribute) {
             collect(array_wrap($rules))->whereInstanceOf(CustomRule::class)->each(function ($rule) {
-                $rule::validator($this->getValidatorInstance());
-                $rule::request($this);
+                $rule::validator($this->getValidator());
+                $rule::service($this);
             });
         });
     }

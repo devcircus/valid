@@ -31,7 +31,6 @@ class ValidServiceProvider extends ServiceProvider
 
         $this->app->resolving(ValidationService::class, function ($resolved, $app) {
             $resolved->setContainer($app)->setRedirector($app->make(Redirector::class));
-            $resolved->prepareCustomRules();
         });
 
         $this->commands([

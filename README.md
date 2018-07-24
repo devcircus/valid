@@ -385,7 +385,7 @@ class StoreCommentValidator extends ValidationService
 }
 ```
 
-> You can use our custom rules and the waavi/sanitizer filters within a ValidationService just like you can with the Custom FormRequests.
+> You can use our custom rules and the waavi/sanitizer filters within a ValidationService just like you can with the Custom FormRequests. Also, in the same way that CustomRules in FormRequests give you access to $request and $validator properties, the CustomRules used in the ValidationService has $validator and $service properties that give you access to the current Validator and the current ValidationService.
 
 ### Testing
 

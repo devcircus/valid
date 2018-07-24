@@ -12,3 +12,7 @@ All notable changes to `bright-components/valid` will be documented in this file
 - Replace the command $name property for each command with the $signature property.
 - Start adding tests for each of the generator commands.
 - Bump the waavi/sanitizer version due to directory structure changes between 1.0.5 and 1.0.6. This fixes travis failures.
+
+## 0.1.2 - 2018-07-24
+
+- Fixed a couple of issues with Custom Rules and the Validation Service. First, the $request object that is set on CustomRules when used in FormRequests, is not available in the ValidationService. This property for Custom Rules in Validation Services, has been renamed $service and gives you access to the current ValidationService instance. Also, the ValidationService ```getValidator()``` method has been renamed ```getValidatorInstance()``` to match the method in FormRequests.

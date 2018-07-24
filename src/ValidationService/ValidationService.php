@@ -49,6 +49,7 @@ class ValidationService implements Contract
     public function validate(array $data)
     {
         $this->data = $data;
+        $this->prepareCustomRules();
 
         $this->prepareForValidation();
 
@@ -102,7 +103,7 @@ class ValidationService implements Contract
     public function validator(ValidationFactory $factory)
     {
         return $factory->make(
-            $this->validationData(),
+            $this->validationData() ?? [],
             $this->container->call([$this, 'rules']),
             $this->messages(),
             $this->attributes()

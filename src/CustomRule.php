@@ -5,6 +5,7 @@ namespace BrightComponents\Valid;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
+use BrightComponents\Valid\Contracts\ValidationService\ValidationService;
 
 abstract class CustomRule implements Rule
 {
@@ -60,7 +61,7 @@ abstract class CustomRule implements Rule
     /**
      * Set the Validation Service property.
      *
-     * @param  \BrightComponents\Valid\ValidationService\ValidationService  $service
+     * @param  \BrightComponents\Valid\Contracts\ValidationService\ValidationService  $service
      */
     public static function service(? ValidationService $service = null)
     {

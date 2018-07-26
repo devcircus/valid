@@ -13,7 +13,7 @@ class ValidationServiceMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'bright:validation {name}';
+    protected $signature = 'adr:validation {name}';
 
     /**
      * The console command description.

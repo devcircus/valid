@@ -11,7 +11,7 @@ class CustomRuleCommandTest extends IntegrationTestCase
     /** @test */
     public function bright_rule_command_makes_rule_with_correct_methods()
     {
-        Artisan::call('bright:rule', ['name' => 'MyRule']);
+        Artisan::call('adr:rule', ['name' => 'MyRule']);
 
         include_once base_path().'/app/Rules/MyRule.php';
 

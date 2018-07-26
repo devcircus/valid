@@ -12,7 +12,7 @@ class CustomRuleMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'bright:rule {name}';
+    protected $signature = 'adr:rule {name}';
 
     /**
      * The console command description.

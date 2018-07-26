@@ -11,7 +11,7 @@ class FormRequestCommandTest extends IntegrationTestCase
     /** @test */
     public function bright_request_command_makes_request_with_correct_methods()
     {
-        Artisan::call('bright:request', ['name' => 'MyRequest']);
+        Artisan::call('adr:request', ['name' => 'MyRequest']);
 
         include_once base_path().'/app/Http/Requests/MyRequest.php';
 

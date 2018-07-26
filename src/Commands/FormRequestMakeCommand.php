@@ -12,7 +12,7 @@ class FormRequestMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'bright:request {name}';
+    protected $signature = 'adr:request {name}';
 
     /**
      * The console command description.

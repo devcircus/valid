@@ -11,7 +11,7 @@ class ValidationServiceCommandTest extends IntegrationTestCase
     /** @test */
     public function bright_validation_command_makes_validaton_with_correct_methods()
     {
-        Artisan::call('bright:validation', ['name' => 'MyValidationService']);
+        Artisan::call('adr:validation', ['name' => 'MyValidationService']);
 
         include_once base_path().'/app/Services/MyValidationServiceValidation.php';
 

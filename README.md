@@ -186,13 +186,13 @@ return [
 ### Form Requests
 To generate a FormRequest class, run the following command:
 ```bash
-php artisan bright:request CreateComment
+php artisan adr:request CreateComment
 ```
 
 Using the default suffix option of "Request" and the default namespace option of "Http\\Requests", this command will generate an "App\Http\Requests\CreateCommentRequest" class.
 > Note: If you have a suffix set in the config, for example: "Request", and you run the following command:
 ```bash
-php artisan bright:request CreateCommentRequest
+php artisan adr:request CreateCommentRequest
 ```
 > The suffix will NOT be duplicated. To turn off this suffix-duplication detection, change the "override_duplicate_suffix" option to false.
 
@@ -246,13 +246,13 @@ class CustomClass extends BaseRequest
 ### Custom Rules
 To generate a custom Rule, run the following command:
 ```bash
-php artisan bright:rule CustomRule
+php artisan adr:rule CustomRule
 ```
 
 Using the default suffix option of "Rule" and the default namespace option of "Rules", this command will generate an "App\Rules\CustomRule" class.
 > Note: If you have a suffix set in the config, for example: "Rule", and you run the following command:
 ```bash
-php artisan bright:rule CustomRule
+php artisan adr:rule CustomRule
 ```
 > The suffix will NOT be duplicated. To turn off this suffix-duplication detection, change the "override_duplicate_suffix" option to false.
 
@@ -298,13 +298,13 @@ class NotSpamRule extends CustomRule
 
 To generate a validation service, run the following command:
 ```bash
-php artisan bright:validation StoreCommentValidation
+php artisan adr:validation StoreCommentValidation
 ```
 
 Using the default suffix option of "Validation" and the default namespace option of "Services", this command will generate an "App\Services\StoreCommentValidation" class.
 > Note: If you have a suffix set in the config, for example: "Validation", and you run the following command:
 ```bash
-php artisan bright:validation StoreCommentValidation
+php artisan adr:validation StoreCommentValidation
 ```
 > The suffix will NOT be duplicated. To turn off this suffix-duplication detection, change the "override_duplicate_suffix" option to false.
 

@@ -20,3 +20,7 @@ All notable changes to `bright-components/valid` will be documented in this file
 ## 0.1.3 - 2018-07-26
 
 - With the introduction of the bright-components/adr package, we're renaming the command namespace to 'adr' for consistency.
+
+## 0.1.3 - 2018-08-23
+
+- Only run "preparesCustomRules" if the pacakge base form request class is used.

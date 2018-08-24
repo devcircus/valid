@@ -26,7 +26,9 @@ class ValidServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/valid.php', 'valid');
 
         $this->app->resolving(ValidatesWhenResolved::class, function ($resolved) {
-            $resolved->prepareCustomRules();
+            if (method_exists($resolved, 'prepareCustomRules')) {
+                $resolved->prepareCustomRules();
+            }
         });
 
         $this->app->resolving(ValidationService::class, function ($resolved, $app) {

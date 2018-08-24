@@ -1,7 +1,7 @@
 {
     "name": "bright-components/valid",
     "description": "Custom Form Requests and Service Validation for Laravel",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "keywords": [
         "brightcomponents",
         "FormRequests",

@@ -24,3 +24,7 @@ All notable changes to `bright-components/valid` will be documented in this file
 ## 0.1.3 - 2018-08-23
 
 - Only run "preparesCustomRules" if the pacakge base form request class is used.
+
+## 1.0.0-beta.1 - 2018-09-01
+
+- First beta release. Features locked.

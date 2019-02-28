@@ -34,3 +34,7 @@ All notable changes to `bright-components/valid` will be documented in this file
 -   Bump PHP version.
 -   Bump laravel/framework version.
 -   Bump orchestra/testbench version.
+
+## 1.0.0-beta.1.2 - 2019-02-28
+
+-   Update for compatibility with Laravel 5.8

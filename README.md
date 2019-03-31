@@ -50,10 +50,6 @@ You can install the package via composer. From your project directory, in your t
 ```bash
 composer require bright-components/valid
 ```
-> Note: Until version 1.0 is released, major features and bug fixes may be added between minor versions. To maintain stability, I recommend a restraint in the form of "0.1.*". This would take the form of:
-```bash
-composer require "bright-components/valid:0.1.*"
-```
 
 In Laravel > 5.6.0, the ServiceProvider will be automtically detected and registered.
 If you are using an older version of Laravel, add the package service provider to your config/app.php file, in the 'providers' array:
@@ -326,9 +322,9 @@ class StoreCommentService
     /**
      * Construct a new StoreCommentService.
      */
-    public function __construct($params)
+    public function __construct(StoreCommentValidator $validator) // here, the validation service class is resolved from the container
     {
-        $this->params = $params;
+        $this->validator = $validator;
     }
 
     /**
@@ -336,9 +332,9 @@ class StoreCommentService
      *
      * @return mixed
      */
-    public function run(StoreCommentValidator $validator) // here, the class is resolved from the container
+    public function run($params)
     {
-        $validated = $validator->validate($this->params); // we call the validate method, passing the array of parameters
+        $validated = $validator->validate($params); // we call the validate method, passing the array of parameters
 
         return Comment::create([
             'content' => $validated['content'], // the validated method returns the key/value pairs of data that was validaated

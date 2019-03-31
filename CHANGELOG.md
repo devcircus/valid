@@ -46,3 +46,9 @@ All notable changes to `bright-components/valid` will be documented in this file
 ## 2.0.0 - 2019-03-29
 
 -   Update to version 2.0 to sync bright components package versions.
+
+## 2.0.1 - 2019-03-31
+
+-   Update README to reflect API changes that were never noted.
+    -   The example of using a bright-component/services Service class, incorrectly show the data being passed to the Service via
+        the constructor. Now, data is passed via the 'run' method and dependencies are resolved via the constructor.
